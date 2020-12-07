@@ -1,0 +1,91 @@
+# System Files
+Thumbs.db
+*.lnk
+.DS_Store
+
+# Log Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Version Control
+vcs.xml
+
+# Temp Files
+*.bak
+*.tmp
+tmp/
+temp/
+backup/
+.history
+.cache
+
+# Generated Files
+bin/
+out/
+release/
+dist/
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.out
+
+# JetBrains IDE
+*.iml
+.idea/
+
+# IDE settings
+.settings/
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Vim
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+*~
+[._]*.un~
+
+# Sublime
+*.sublime-workspace
+
+## VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Vagrant
+.vagrant/
+
+# Redis
+*.rdb
+
+# Nodejs
+node_modules/
+
+# Test binary, built with `go test -c`
+*.test
+
+# fabric samples
+fabric-notes/fabric-samples
