@@ -56,7 +56,7 @@ modprobe br_netfilter
 
 echo '==== yum update and install common package===='
 yum update -y
-yum install -y vim net-tools telnet bind-utils wget yum-utils device-mapper-persistent-data lvm2
+yum install -y vim net-tools telnet bind-utils wget yum-utils device-mapper-persistent-data lvm2 emacs git
 
 echo '====config system k8s network params===='
 cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
@@ -124,3 +124,19 @@ mkdir /etc/systemd/system/docker.service.d
 echo "ExecStartPost=/sbin/iptables -P FORWARD ACCEPT" >> /etc/systemd/system/docker.service.d/docker.conf
 systemctl daemon-reload
 systemctl restart docker
+
+echo '====docker-compose===='
+curl -L "https://gh.api.99988866.xyz/https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+echo '====switch default user===='
+su - vagrant <<EOF
+echo '====emacs config===='
+mkdir -p ~/.emacs.d
+echo "(setq backup-directory-alist (quote((\".\" . \"~/.emacs.d/.saves\"))))" >> ~/.emacs.d/init.el
+
+echo '====goup install golang===='
+export GOUP_UPDATE_ROOT=https://gh.api.99988866.xyz/https://github.com/owenthereal/goup/releases/latest/download;
+export GOUP_GO_HOST=golang.google.cn;
+curl -sSf https://cdn.jsdelivr.net/gh/owenthereal/goup@master/install.sh | sh -s -- '--skip-prompt'
+EOF
