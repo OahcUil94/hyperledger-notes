@@ -295,3 +295,24 @@ Version: 1.0, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc, Ap
 Query chaincode definition successful on peer0.org2 on channel 'mychannel'
 Chaincode initialization is not required
 ```
+
+## 使用couchDB
+
+`./network up -s couchdb`
+
+id string, color string, size int, owner string, appraisedValue int
+
+peer chaincode invoke -o localhost:7050  -C mychannel -n basic -c '{"function":"CreateAsset","Args":["assets7","black","32","OahcUil","2000"]}'
+
+peer chaincode invoke  -C mychannel -n basic  -c '{"function":"CreateAsset","Args":["assets7","black","32","OahcUil","2000"]}'
+
+peer chaincode query -C mychannel -n basic -c '{"Args":["GetAllAssets"]}'
+
+peer chaincode query -C mychannel -n basic -c '{"function":"CreateAsset","Args":["asset8","black","32","OahcUil","2000"]}'
+
+## ledger
+
+peer chaincode invoke -C mychannel -n ledger -c '{"Args":["InitLedger"]}' -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+
+## 参考资料
+https://www.jianshu.com/p/b131a8503559
