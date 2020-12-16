@@ -139,4 +139,7 @@ echo '====goup install golang===='
 export GOUP_UPDATE_ROOT=https://gh.api.99988866.xyz/https://github.com/owenthereal/goup/releases/latest/download;
 export GOUP_GO_HOST=golang.google.cn;
 curl -sSf https://cdn.jsdelivr.net/gh/owenthereal/goup@master/install.sh | sh -s -- '--skip-prompt'
+
+echo "export GOPROXY=https://goproxy.cn,direct;" >> ~/.bash_profile
+echo "export GOPATH=/home/vagrant/code/go;" >> ~/.bash_profile
 EOF
