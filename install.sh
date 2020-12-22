@@ -142,4 +142,12 @@ curl -sSf https://cdn.jsdelivr.net/gh/owenthereal/goup@master/install.sh | sh -s
 
 echo "export GOPROXY=https://goproxy.cn,direct;" >> ~/.bash_profile
 echo "export GOPATH=/home/vagrant/code/go;" >> ~/.bash_profile
+
+echo '====nvm install node===='
+curl -o- https://cdn.jsdelivr.net/gh/nvm-sh/nvm@v0.37.2/install.sh | bash
+echo "export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node" >> ~/.bashrc
+source .bashrc
+nvm install v14.15.3 --default
+npm config -g set registry https://registry.npm.taobao.org
+npm config -g get registry
 EOF
