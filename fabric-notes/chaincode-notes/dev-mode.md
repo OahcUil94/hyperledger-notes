@@ -194,7 +194,7 @@ go run . -peer.address 127.0.0.1:9052
 
 ```
 cd fabric-samples/test-network
-./network.sh deployCC -ccn basic -ccp . -ccv v1.0.0 -ccs 1 -ccl go
+./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go/ -ccv v1.0.0 -ccs 1 -ccl go
 ```
 
 ## 调用链码测试
@@ -213,6 +213,29 @@ peer chaincode invoke -o localhost:7050 -C mychannel -n basic --peerAddresses lo
 peer chaincode query -C mychannel -n basic -c '{"Args":["GetAllAssets"]}'
 peer chaincode invoke -o localhost:7050 -C mychannel -n basic --peerAddresses localhost:7051 --peerAddresses localhost:9051 -c '{"function":"TransferAsset","Args":["asset6","Christopher"]}'
 peer chaincode query -C mychannel -n basic -c '{"Args":["ReadAsset","asset6"]}'
+```
+
+## blockchain-explorer链接配置修改
+
+```
+  {
+  	  "name": "first-network",
+	  "version": "1.0.0",
+	  "client": {
+-		  "tlsEnable": true,
++		  "tlsEnable": false,
+	  },
+      ...
+	  "peers": {
+		  "peer0.org1.example.com": {
+			  "tlsCACerts": {
+				  "path": "/tmp/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+			  },
+-			  "url": "grpcs://peer0.org1.example.com:7051"
++			  "url": "grpc://peer0.org1.example.com:7051"
+		  }
+	  }
+  }
 ``` 
 
 ## 参考资料
