@@ -47,6 +47,7 @@
   peer0.org1.example.com:
       environment:
         ...
+-       - FABRIC_LOGGING_SPEC=INFO
 +       - FABRIC_LOGGING_SPEC=chaincode=debug
         #- FABRIC_LOGGING_SPEC=DEBUG
 -       - CORE_PEER_TLS_ENABLED=true
@@ -63,6 +64,7 @@
   peer0.org2.example.com:
       environment:
         ...
+-       - FABRIC_LOGGING_SPEC=INFO
 +       - FABRIC_LOGGING_SPEC=chaincode=debug
         #- FABRIC_LOGGING_SPEC=DEBUG
 -       - CORE_PEER_TLS_ENABLED=true
@@ -125,7 +127,7 @@
     ...
 -   peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} ${CC_END_POLICY} ${CC_COLL_CONFIG} >&log.txt
 +   # peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} ${CC_END_POLICY} ${CC_COLL_CONFIG} >&log.txt
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${CC_NAME}:${CC_VERSION} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} ${CC_END_POLICY} ${CC_COLL_CONFIG} >&log.txt
++   peer lifecycle chaincode approveformyorg -o localhost:7050 --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${CC_NAME}:${CC_VERSION} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} ${CC_END_POLICY} ${CC_COLL_CONFIG} >&log.txt
     ...
   }
 
@@ -171,7 +173,7 @@
 
 `./network.sh up createChannel -c mychannel`
 
-## 注册链码到通道中
+## 注册链码到peer中
 
 这里使用`fabric-samples/asset-transfer-basic/chaincode-go`中的链码, 和以往不同的是链码无需打包, 可在本地直接运行:
 
@@ -180,7 +182,10 @@ export CORE_CHAINCODE_LOGLEVEL=debug
 export CORE_PEER_TLS_ENABLED=false
 # 链码名+版本号  
 export CORE_CHAINCODE_ID_NAME=basic:v1.0.0 
+
+# 需在两个组织的peer上都进行注册
 go run . -peer.address 127.0.0.1:7052
+go run . -peer.address 127.0.0.1:9052
 ```
 
 > 注意: 这里指定的peer.address是peer服务链码的监听地址
@@ -189,11 +194,7 @@ go run . -peer.address 127.0.0.1:7052
 
 ```
 cd fabric-samples/test-network
-
-./network.sh deployCC -ccn basic \
-  -ccp ../asset-transfer-basic/chaincode-go \
-  -ccep "OR('Org1.peer')" \
-  -ccv v1.0.0 -ccs 1 -ccl go
+./network.sh deployCC -ccn basic -ccp . -ccv v1.0.0 -ccs 1 -ccl go
 ```
 
 ## 调用链码测试
