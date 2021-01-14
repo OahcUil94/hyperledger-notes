@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
   config.vm.synced_folder "~/code/go", "/home/vagrant/code/go", type: "nfs"
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "4096"
+    vb.memory = "2048"
     vb.cpus = 2
     vb.name = "dev-node"
   end

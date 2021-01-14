@@ -56,7 +56,7 @@ modprobe br_netfilter
 
 echo '==== yum update and install common package===='
 yum update -y
-yum install -y vim net-tools telnet bind-utils wget yum-utils device-mapper-persistent-data lvm2 emacs git tree
+yum install -y vim net-tools telnet bind-utils wget yum-utils device-mapper-persistent-data lvm2 emacs git tree jq
 
 echo '====config system k8s network params===='
 cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
